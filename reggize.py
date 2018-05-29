@@ -25,12 +25,14 @@ def levenshtein(a,b):
 def decompound(word, dictionary):
 	bits = []
 	while word:
-		choices = [w for w in dictionary[word[0]] if word.startswith(w)]
+		choices = [w for w in dictionary[word[0]] if word.startswith(w) and len(w) > 1]
 		if not choices:
 			break
 		longest_choice = max(choices, key=len)
 		bits.append(longest_choice)
 		word = word[len(longest_choice):]
+	if word:  # unmatched leftovers
+		bits.append(word)
 	return bits
 
 
